@@ -1,0 +1,124 @@
+/* ================= NINE FX — smooth animations layer ================= */
+:root{--nfx-ease:cubic-bezier(.22,.61,.36,1);--nfx-ease-out:cubic-bezier(.16,1,.3,1)}
+html{scroll-behavior:smooth}
+
+/* ---- reveal on scroll ---- */
+html.nfx [data-nfx]{opacity:0;transform:translateY(16px)}
+html.nfx [data-nfx=left]{transform:translateX(-22px)}
+html.nfx [data-nfx=right]{transform:translateX(22px)}
+html.nfx [data-nfx=zoom]{transform:scale(.94)}
+html.nfx .nfx-in{opacity:1;transform:none;transition:opacity .85s var(--nfx-ease),transform .85s var(--nfx-ease);transition-delay:var(--nfx-d,0ms)}
+
+/* ---- hero glow breathing ---- */
+@keyframes nfxGlow{0%,100%{filter:drop-shadow(0 0 12px rgba(var(--rgb),.3))}50%{filter:drop-shadow(0 0 26px rgba(var(--rgb),.55))}}
+.hero-ascii .ascii{animation:nfxGlow 6.5s ease-in-out infinite}
+
+/* ---- hover micro-interactions ---- */
+.product-card{transition:transform .45s var(--nfx-ease),box-shadow .45s var(--nfx-ease),border-color .45s}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px -22px rgba(var(--rgb),.38)}
+.coming-card{transition:transform .45s var(--nfx-ease)}
+.coming-card:hover{transform:translateY(-4px)}
+.solid-button{transition:transform .3s var(--nfx-ease),box-shadow .3s,background-color .3s}
+.solid-button:hover{transform:translateY(-2px);box-shadow:0 12px 30px -10px rgba(var(--rgb),.6)}
+.solid-button:active{transform:translateY(0) scale(.98)}
+.solid-button svg{transition:transform .35s var(--nfx-ease)}
+.solid-button:hover svg{transform:translateY(3px)}
+.theme-choice{transition:transform .25s var(--nfx-ease),border-color .25s,color .25s}
+.theme-choice:hover{transform:translateY(-2px)}
+.theme-choice:active{transform:scale(.94)}
+.top-link{transition:color .3s,border-color .3s,transform .3s var(--nfx-ease)}
+.top-link:hover{transform:translateY(-3px)}
+.back-link{transition:color .3s,transform .3s var(--nfx-ease)}
+.back-link:hover{transform:translateX(4px)}
+.header nav a{transition:color .3s,opacity .3s}
+.mini-dot{animation:nfxDot 2.4s ease-in-out infinite}
+@keyframes nfxDot{0%,100%{box-shadow:0 0 0 0 rgba(var(--rgb),.55)}55%{box-shadow:0 0 0 4px rgba(var(--rgb),0)}}
+
+/* ---- scrollbar / selection ---- */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#0d0c10}
+::-webkit-scrollbar-thumb{background:#2b2533;border-radius:6px;border:2px solid #0d0c10}
+::-webkit-scrollbar-thumb:hover{background:var(--dim)}
+::selection{background:rgba(var(--rgb),.32)}
+
+/* ================= interactive console ================= */
+.console-preview.nfx-console{position:relative;outline:none;will-change:transform;transition:box-shadow .5s,border-color .5s}
+.console-preview.nfx-console:hover{border-color:color-mix(in srgb,var(--accent),#3d334a 60%);box-shadow:0 30px 70px -34px rgba(var(--rgb),.55)}
+.console-preview.nfx-console:focus-visible{border-color:var(--dim);box-shadow:0 0 0 1px var(--dim),0 30px 70px -34px rgba(var(--rgb),.5)}
+
+/* CRT scanlines + vignette */
+.console-preview.nfx-console:after{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 3px);mix-blend-mode:overlay;animation:nfxScan 5s steps(40) infinite}
+@keyframes nfxScan{0%,100%{opacity:.7}47%{opacity:.5}50%{opacity:.95}76%{opacity:.6}}
+.console-preview.nfx-console:before{content:"";position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(ellipse at 50% 40%,transparent 55%,rgba(0,0,0,.3));opacity:0;transition:opacity .5s}
+.console-preview.nfx-console:hover:before{opacity:1}
+
+/* title bar shine sweep */
+.nfx-console .preview-title{position:relative;overflow:hidden}
+.nfx-console .preview-title:after{content:"";position:absolute;top:-2px;bottom:-2px;width:38%;left:-45%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.1),transparent);animation:nfxShine 6s var(--nfx-ease) infinite}
+@keyframes nfxShine{0%,60%{left:-45%}90%,100%{left:135%}}
+
+/* boot sequence */
+.console-preview.nfx-boot{animation:nfxOn .8s var(--nfx-ease-out)}
+@keyframes nfxOn{0%{opacity:0;filter:brightness(2.4) contrast(.7)}55%{opacity:1;filter:brightness(1.3)}100%{filter:none}}
+.console-preview.nfx-boot .ascii span{animation:nfxLine .5s var(--nfx-ease-out) backwards}
+.console-preview.nfx-boot .ascii span:nth-child(2){animation-delay:.08s}
+.console-preview.nfx-boot .ascii span:nth-child(3){animation-delay:.16s}
+.console-preview.nfx-boot .ascii span:nth-child(4){animation-delay:.24s}
+.console-preview.nfx-boot .ascii span:nth-child(5){animation-delay:.32s}
+.console-preview.nfx-boot .ascii span:nth-child(6){animation-delay:.4s}
+.console-preview.nfx-boot .ascii span:nth-child(7){animation-delay:.48s}
+.console-preview.nfx-boot .ascii span:nth-child(8){animation-delay:.56s}
+.console-preview.nfx-boot .ascii span:nth-child(9){animation-delay:.64s}
+@keyframes nfxLine{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.console-preview.nfx-boot .nfx-item{animation:nfxLine .45s var(--nfx-ease-out) backwards}
+.console-preview.nfx-boot .nfx-item:nth-of-type(2){animation-delay:.55s}
+.console-preview.nfx-boot .nfx-item:nth-of-type(3){animation-delay:.63s}
+.console-preview.nfx-boot .nfx-item:nth-of-type(4){animation-delay:.71s}
+.console-preview.nfx-boot .nfx-item:nth-of-type(5){animation-delay:.79s}
+.console-preview.nfx-boot .nfx-hint,.console-preview.nfx-boot .preview-bottom{animation:nfxFade .5s .95s var(--nfx-ease) backwards}
+@keyframes nfxFade{from{opacity:0}to{opacity:1}}
+
+/* menu (replaces React one) */
+.console-preview.nfx-console .preview-menu{display:none}
+.nfx-menu{color:#aaa0b5;user-select:none}
+.nfx-menu .nfx-muted{color:#5a4e67;display:block}
+.nfx-item{display:flex;align-items:baseline;cursor:pointer;padding:0 6px;margin:0 -6px;border-radius:3px;transition:color .22s,transform .3s var(--nfx-ease),background .22s}
+.nfx-item:before{content:"  ";white-space:pre}
+.nfx-item.nfx-sel:before{content:"› "}
+.nfx-item .nfx-num{color:#63576f;margin-right:.65em;transition:color .22s}
+.nfx-item:hover{color:var(--accent)}
+.nfx-item.nfx-sel{color:var(--accent);transform:translateX(5px)}
+.nfx-item.nfx-sel .nfx-num{color:var(--dim)}
+.nfx-item.nfx-tab-open{background:rgba(var(--rgb),.09)}
+.nfx-hint{color:#5c4d6b;font-size:.72em;margin:1.2em 0 0}
+.nfx-menu.nfx-pulse{animation:nfxPulse .35s var(--nfx-ease)}
+@keyframes nfxPulse{50%{transform:scale(1.02)}}
+
+/* module pane */
+.nfx-pane{overflow:hidden;max-height:0;opacity:0;color:#a89bb4;line-height:2;transition:max-height .55s var(--nfx-ease-out),opacity .45s var(--nfx-ease)}
+.nfx-pane.nfx-open{max-height:300px;opacity:1}
+.nfx-pane-h{color:var(--accent);white-space:nowrap;overflow:hidden;border-bottom:1px dashed #372c42;padding-bottom:.3em;margin-bottom:.4em;min-height:1em}
+.nfx-bar{height:.55em;max-width:16em;background:#1c1523;border:1px solid #322740;margin:.4em 0 .7em;overflow:hidden}
+.nfx-bar>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--deep),var(--accent));transition:width .7s var(--nfx-ease)}
+.nfx-row{display:flex;align-items:baseline;gap:.6em;cursor:pointer;padding:0 .5em;margin:0 -.5em;border-radius:3px;transition:background .2s,color .2s}
+.nfx-row:hover{background:rgba(var(--rgb),.07);color:#d6cade}
+.nfx-row .nfx-box{color:#63576f;transition:color .2s}
+.nfx-row.nfx-on .nfx-box{color:var(--accent)}
+.nfx-row em{font-style:normal;margin-left:auto;color:#5c4d6b;transition:color .2s}
+.nfx-row.nfx-on em{color:var(--dim)}
+.nfx-row.nfx-flash{animation:nfxFlash .4s var(--nfx-ease)}
+@keyframes nfxFlash{0%{background:rgba(var(--rgb),.28);color:#fff}100%{background:transparent}}
+
+/* ascii reacts to open tab; click = spin */
+.console-preview.nfx-console .ascii{cursor:pointer;transition:transform .45s var(--nfx-ease),opacity .45s var(--nfx-ease),filter .45s}
+.console-preview.nfx-tab-open .ascii{transform:scale(.82);opacity:.38;filter:drop-shadow(0 0 4px rgba(var(--rgb),.3))}
+.console-preview.nfx-spin{animation:nfxSpin 1.05s var(--nfx-ease)}
+@keyframes nfxSpin{0%{filter:brightness(1.35)}45%{transform:perspective(1100px) rotateY(180deg) scale(.96)}100%{transform:perspective(1100px) rotateY(360deg)}}
+.console-preview.nfx-reboot{animation:nfxReboot .8s steps(8)}
+@keyframes nfxReboot{0%{filter:brightness(0) saturate(0)}30%{filter:brightness(1.8)}45%{filter:brightness(.2)}60%{filter:brightness(1.5) saturate(1.4)}100%{filter:none}}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  html.nfx [data-nfx]{opacity:1;transform:none}
+  .console-preview.nfx-console:after,.nfx-console .preview-title:after,.hero-ascii .ascii,.mini-dot{animation:none}
+}
